@@ -1,3 +1,3 @@
-# StartupGrid
+# [StartupGrid API](http://docs.sug.apiary.io)
 
-We've got a minimal API up and running.
+Written with Rails-API. Search query support will come later.

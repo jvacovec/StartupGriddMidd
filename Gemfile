@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.2.0'
 
 gem 'rails', '4.2.0'
 
@@ -7,8 +7,9 @@ gem 'rails-api'
 
 gem 'spring', :group => :development
 
+gem 'rack-timeout'
 
-gem 'sqlite3'
+# gem 'sqlite3'
 
 
 
@@ -19,7 +20,11 @@ gem 'sqlite3'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
+
+gem 'pg'
+
+# gem 'rack-timeout`
 
 # Deploy with Capistrano
 # gem 'capistrano', :group => :development

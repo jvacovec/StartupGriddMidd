@@ -3,6 +3,7 @@ class CreatePosts < ActiveRecord::Migration
     create_table :posts do |t|
       t.string :title
       t.string :url
+      t.datetime :date_posted
       t.string :media_type # see if we can make this an enum field
       t.string :quote_1
       t.string :quote_2
@@ -18,7 +19,7 @@ class CreatePosts < ActiveRecord::Migration
       t.references :author, index: true
       t.timestamps null: false
     end
-    add_foreign_key :posts, :user
-    add_foreign_key :author, :user
+    # add_foreign_key :posts, :user
+    # add_foreign_key :author, :user
   end
 end

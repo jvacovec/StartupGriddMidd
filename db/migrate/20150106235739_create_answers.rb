@@ -9,7 +9,7 @@ class CreateAnswers < ActiveRecord::Migration
       t.references :post, index: true      
       t.timestamps null: false
     end
-    add_foreign_key :answers, :question
-    add_foreign_key :answers, :post
+    # add_foreign_key :answers, :question
+    # add_foreign_key :answers, :post
   end
 end

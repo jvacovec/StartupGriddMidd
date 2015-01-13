@@ -1,10 +1,27 @@
 Rails.application.routes.draw do
-  resources :users, except: [:new, :edit]
-  resources :tags, except: [:new, :edit]
-  resources :questions, except: [:new, :edit]
-  resources :authors, except: [:new, :edit]
-  resources :answers, except: [:new, :edit]
-  resources :posts, except: [:new, :edit]
+  resources :users, only: [:show, :index]
+
+  resources :tags, only: [:show, :index] do
+    resources :questions, only: [:show, :index]
+    resources :posts, only: [:show, :index]
+  end
+
+  resources :questions, only: [:show, :index] do
+    resources :tags, only: [:show, :index]
+  end
+
+  resources :authors, only: [:show, :index]
+
+  resources :answers, only: [:show, :index] do
+    resources :posts, only: [:show, :index]
+    resources :questions, only: [:show, :index]
+  end
+
+  resources :posts, only: [:show, :index] do
+    resources :authors, only: [:show, :index]
+    resources :users, only: [:show, :index]
+    resources :tags, only: [:show, :index]
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
