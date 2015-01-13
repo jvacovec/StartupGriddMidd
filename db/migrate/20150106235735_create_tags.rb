@@ -6,6 +6,6 @@ class CreateTags < ActiveRecord::Migration
       t.references :tag, index: true
       t.timestamps null: false
     end
-    add_foreign_key :tag, :tag
+    # add_foreign_key :tag, :tag
   end
 end

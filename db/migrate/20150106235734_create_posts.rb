@@ -12,9 +12,6 @@ class CreatePosts < ActiveRecord::Migration
       t.integer :technicality
       t.integer :quality
       t.text :summary
-      t.string :reference_url_1
-      t.string :reference_url_2
-      t.string :reference_url_3
       t.string :trackback_url_1
       t.string :trackback_url_2
       t.string :trackback_url_3
@@ -22,7 +19,7 @@ class CreatePosts < ActiveRecord::Migration
       t.references :author, index: true
       t.timestamps null: false
     end
-    add_foreign_key :posts, :user
-    add_foreign_key :author, :user
+    # add_foreign_key :posts, :user
+    # add_foreign_key :author, :user
   end
 end
