@@ -8,8 +8,8 @@ class Post < ActiveRecord::Base
   has_many :taggings
   has_many :tags, through: :taggings
 
-  def tag_list
-    tags.join(", ")
+  def to_s
+    title
   end
 
   include Elasticsearch::Model

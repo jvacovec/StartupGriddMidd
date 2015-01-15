@@ -2,13 +2,10 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :index]
 
   resources :tags, only: [:show, :index] do
-    resources :questions, only: [:show, :index]
     resources :posts, only: [:show, :index]
   end
 
-  resources :questions, only: [:show, :index] do
-    resources :tags, only: [:show, :index]
-  end
+  resources :questions, only: [:show, :index]
 
   resources :authors, only: [:show, :index]
 
