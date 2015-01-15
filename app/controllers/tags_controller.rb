@@ -3,7 +3,6 @@ class TagsController < ApplicationController
   # GET /tags.json
   def index
     @tags = Tag.all
-
     render json: @tags
   end
 
@@ -11,8 +10,10 @@ class TagsController < ApplicationController
   # GET /tags/1.json
   def show
     @tag = Tag.find(params[:id])
+    @post = Tag.find(params[:id]).posts
+    show = @tag, @post
 
-    render json: @tag
+    render json: show
   end
 
   # POST /tags

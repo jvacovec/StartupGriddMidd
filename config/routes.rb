@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :index]
 
   resources :tags, only: [:show, :index] do
-    resources :posts, only: [:show, :index]
+    resources :posts, only: [:index]
   end
 
   resources :questions, only: [:show, :index]
