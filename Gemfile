@@ -31,3 +31,7 @@ gem 'pg'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+gem 'google-api-client'
+gem 'launchy'
+gem 'colorize'
