@@ -40,3 +40,28 @@ A single Post object with all its details
 
 ### Remove a Post [DELETE]
 + Response 204
+
+### List a Post's Tags [GET]
+
+### List a Post's Author [GET]
+
+# Group Authors
+
+An author is the source of startup information. The listing contains a bio and links to external webpages on the author.
+
+## Authors Collection [/authors]
+### List All Authors [GET]
+
+## Author Posts [/authors/{id}/posts]
+### List Posts by Author [GET]
+
+# Group Tags
+
+A tag indicates the type of information in a post, and is related to posts through the "Taggings" model.
+
+## Tags Collection [/tags]
+### List All Tags [GET]
+
+## Tag Posts [/tags/{id}/posts]
+### List Posts by Tag [GET]
+

@@ -2,8 +2,11 @@ class AuthorsController < ApplicationController
   # GET /authors
   # GET /authors.json
   def index
-    @authors = Author.all
-
+    if params[:post_id]
+      @authors = Post.find(params[:post_id]).authors
+    else
+      @authors = Author.all
+    end
     render json: @authors
   end
 
