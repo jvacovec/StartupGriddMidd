@@ -2,8 +2,13 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
-
+    if params[:tag_id]
+      @posts = Tag.find(params[:tag_id]).posts
+    elsif params[:author_id]
+      @posts = Author.find(params[:author_id]).posts
+    else
+      @posts = Post.all
+    end
     render json: @posts
   end
 

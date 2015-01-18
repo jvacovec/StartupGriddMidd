@@ -11,7 +11,9 @@ gem 'rack-timeout'
 
 # gem 'sqlite3'
 
-
+#elasticsearch gems
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
