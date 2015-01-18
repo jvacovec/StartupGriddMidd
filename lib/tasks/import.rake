@@ -111,7 +111,6 @@ namespace :import do
 
           subtopics = row['Enter Subtopics (Min 1, Max 4)'].split(',')
           tags = row['Enter Tags (Min 2, Max 6)'].split(',')
-          
 
           post.save
 
