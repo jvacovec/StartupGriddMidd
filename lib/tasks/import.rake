@@ -109,9 +109,9 @@ namespace :import do
           post.user = User.find_by(username: row['Reviewer ID'].strip).first!
           post.author = Author.find_or_create_by(name: row['Full Name of Multimedia Author  '].strip)
 
-          subtopics = row['Enter Subtopics (Min 1, Max 4)'].split(',')
-          tags = row['Enter Tags (Min 2, Max 6)'].split(',')
-
+          subtopics = row['Enter Subtopics (Min 1, Max 4)'].split(',').map{|t| t.strip.downcase}.select {|t| t.length > 0}
+          tags = row['Enter Tags (Min 2, Max 6)'].split(',').map {|t| t.strip.downcase}.select {|t| t.length > 0}
+          
           post.save
 
           question_1 = Question.find_or_create_by(question: row[10].strip)
