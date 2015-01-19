@@ -25,17 +25,32 @@ A single Post object with all its details
 ### Retrieve a Post [GET]
 + Response 200 (application/json)
     
-    { "id": 2, "title": "Pick-up posters from post-office" }
+        { "id": 2, "title": "Pick-up posters from post-office" }
 
 # Group Authors
 
 An author is the source of startup information. The listing contains a bio and links to external webpages on the author.
 
-## Authors Collection [/authors]
-### List All Authors [GET]
 
-## Author Posts [/authors/{id}/posts]
-### List Posts by Author [GET]
+## Authors Collection [/authors]
+### List all Authors [GET]
++ Response 200 (application/json)
+
+<!--        [{
+          "id": 1, "first": "Dave", "last": "Smith"
+        },  {
+          "id": 2, "first": "John", "last": "Deere"
+        }] -->
+
+## Author [/authors/{id}]
+A single Author object with Author's Posts
++ Parameters
+    + id (required, number, `1`) ... Primary key of the author in question.
+
+### Retrieve an Author [GET]
++ Response 200 (application/json)
+
+        { "id": 2, "first": "Dave", "last": "Smith" }
 
 # Group Tags
 
