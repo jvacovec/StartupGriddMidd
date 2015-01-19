@@ -17,6 +17,8 @@ gem 'rack-timeout'
 
 #pagination
 gem 'will_paginate', '~> 3.0.5'
+#with headers...
+gem 'api-pagination'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
