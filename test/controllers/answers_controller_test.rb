@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AnswersControllerTest < ActionController::TestCase
+class AnswersControllerTest < ActiveSupport::TestCase
   setup do
     @answer = answers(:one)
   end

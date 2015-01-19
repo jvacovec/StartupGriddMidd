@@ -4,8 +4,46 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+one:
+  id: 1
+  title: "Professional Bullriding"
+  url: "PBR.com"
+  date_posted:
+  media_type: "video"
+  quote_1: "the REAL PBR"
+  quote_2: "I go through three cans of Copenhagen a day"
+  quote_3: "Animal cruelty who?"
+  difficulty: 10
+  technicality: 150
+  quality: 5
+  summary: "Yeehah"
+  trackback_url_1: "trackback_url_1"
+  trackback_url_2: nil
+  trackback_url_3: nil
+  user_id: 1
+  author_id: 1
+  reference_url_1: "reference_url_1"
+  reference_url_2: "reference_url_2"
+  reference_url_3: "reference_url_3"
+
+two:
+  id: 2
+  title: "Flyfishing"
+  url: "Sage.com"
+  date_posted:
+  media_type: "video"
+  quote_1: "Harder and more expensive than bait"
+  quote_2: "I, too, go through three cans of Copenhagen a day"
+  quote_3: "#troutbum!"
+  difficulty: 7
+  technicality: 100
+  quality: 8
+  summary: "Ouch!"
+  trackback_url_1: "trackback_url_1"
+  trackback_url_2: nil
+  trackback_url_3: nil
+  user_id: 2
+  author_id: 2
+  reference_url_1: "reference_url_1"
+  reference_url_2: "reference_url_2"
+  reference_url_3: "reference_url_3"
