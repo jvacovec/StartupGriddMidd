@@ -9,8 +9,14 @@ class TagsController < ApplicationController
   # GET /tags/1
   # GET /tags/1.json
   def show
-    @tag = Tag.find(params[:id])
-    render json: @tag, include: :posts
+    logger.info params[:id]
+  @topics = Tag.where(:id => params[:id])
+ 
+  render json: @topics, include: { children: {
+    include: :children
+    }
+  }
+
   end
 
   # POST /tags
