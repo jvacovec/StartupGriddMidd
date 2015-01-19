@@ -15,6 +15,9 @@ gem 'rack-timeout'
 #gem 'elasticsearch-model'
 #gem 'elasticsearch-rails'
 
+#pagination
+gem 'will_paginate', '~> 3.0.5'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

@@ -7,7 +7,7 @@ class PostsController < ApplicationController
     elsif params[:author_id]
       @posts = Author.find(params[:author_id]).posts
     else
-      @posts = Post.all
+      @posts = Post.all.order('created_at DESC').page(params[:page]).per_page(30)
     end
     render json: @posts
   end
