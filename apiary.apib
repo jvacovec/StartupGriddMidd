@@ -19,17 +19,14 @@ A single Post object with all its details
 ### Retrieve a Post [GET]
 + Response 200 (application/json)
     
-        { "id": 2, "title": "Pick-up posters from post-office" }
+        {"id":1,"title":"Mean People Fail","url":"http://paulgraham.com/mean.html","date_posted":"2015-01-09T14:00:35.000Z","media_type":"Blog","quote_1":"\"And in most of them meanness was not a handicap but probably an advantage. That is changing. Increasingly the games that matter are not zero-sum. Increasingly you win not by fighting to get control of a scarce resource, but by having new ideas and building new things.\"","quote_2":"","quote_3":null,"difficulty":1,"technicality":1,"quality":5,"summary":"This article gives very sound advice to avoid hiring mean people to a startup. It sets up the correlation between meanness and failure nicely.","trackback_url_1":"","trackback_url_2":"","trackback_url_3":"","user_id":1,"author_id":1,"created_at":"2015-01-19T15:58:05.720Z","updated_at":"2015-01-19T15:58:05.720Z","reference_url_1":"","reference_url_2":"","reference_url_3":null,"csv_row":null,"tags":[{"id":362,"name":"administrative","icon_url":null,"created_at":"2015-01-19T15:58:05.754Z","updated_at":"2015-01-19T15:58:05.754Z","custom":true,"parent_id":null},{"id":363,"name":"management","icon_url":null,"created_at":"2015-01-19T15:58:05.808Z","updated_at":"2015-01-19T15:58:05.808Z","custom":true,"parent_id":null},{"id":364,"name":"team quality","icon_url":null,"created_at":"2015-01-19T15:58:05.831Z","updated_at":"2015-01-19T15:58:05.831Z","custom":true,"parent_id":null},{"id":365,"name":"employee organization","icon_url":null,"created_at":"2015-01-19T15:58:05.852Z","updated_at":"2015-01-19T15:58:05.852Z","custom":true,"parent_id":null}]}
 
 ## Authors Collection [/authors]
 ### List all Authors [GET]
 + Response 200 (application/json)
 
-        [{
-          "id": 1, "first": "Dave", "last": "Smith"
-        },  {
-          "id": 2, "first": "John", "last": "Deere"
-        }] -->
+        [{"id":1,"bio":null,"linkedin_url":null,"angellist_url":null,"wikipedia_url":null,"title":null,"location":null,"created_at":"2015-01-19T15:58:05.706Z","updated_at":"2015-01-19T15:58:05.706Z","name":"Paul Graham"},
+        {"id":2,"bio":null,"linkedin_url":null,"angellist_url":null,"wikipedia_url":null,"title":null,"location":null,"created_at":"2015-01-19T15:58:08.074Z","updated_at":"2015-01-19T15:58:08.074Z","name":"Venture Hacks"}]
 
 ## Author [/authors/{id}]
 A single Author object with Author's Posts
@@ -39,17 +36,14 @@ A single Author object with Author's Posts
 ### Retrieve an Author [GET]
 + Response 200 (application/json)
 
-        { "id": 2, "first": "John", "last": "Deere" }
+        {"id":1,"bio":null,"linkedin_url":null,"angellist_url":null,"wikipedia_url":null,"title":null,"location":null,"created_at":"2015-01-19T18:43:06.277Z","updated_at":"2015-01-19T18:43:06.277Z","name":"Paul Graham"}
 
 ## Tags Collection [/tags]
 ### List All Tags [GET]
 + Response 200 (application/json)
 
-        [{
-          "id": 1, "name": "finance"
-        },  {
-          "id": 2, "name": "technology"
-        }] -->
+        [{"id":1,"name":"Operations","icon_url":null,"created_at":"2015-01-19T18:41:40.832Z","updated_at":"2015-01-19T18:41:40.832Z","custom":false,"parent_id":null},
+        {"id":2,"name":"Administrative","icon_url":null,"created_at":"2015-01-19T18:41:40.838Z","updated_at":"2015-01-19T18:41:40.838Z","custom":false,"parent_id":1}]
 
 ## Tag [/tags/{id}]
 A single Tag object with Posts associated with the Tag
@@ -59,5 +53,5 @@ A single Tag object with Posts associated with the Tag
 ### Retrieve a Tag [GET]
 + Response 200 (application/json)
 
-        { "id": 2, "name": "technology" }
+        {"id":1,"name":"Operations","icon_url":null,"created_at":"2015-01-19T18:41:40.832Z","updated_at":"2015-01-19T18:41:40.832Z","custom":false,"parent_id":null,"posts":[]}
 
