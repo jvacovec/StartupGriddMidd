@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  tag_id: 
-  post_id: 
-  question_id: 
+  tag_id: 1
+  post_id: 1
+  question_id: 1
 
 two:
-  tag_id: 
-  post_id: 
-  question_id: 
+  tag_id: 2
+  post_id: 2
+  question_id: 2
