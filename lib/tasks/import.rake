@@ -86,11 +86,13 @@ namespace :import do
           else
             post = Post.new
           end
-          $stdout.puts row.fetch('Timestamp').strip
-          post.created_at = DateTime.parse row.fetch('Timestamp').strip
+          dt = row.fetch('Timestamp').strip.split(' ')
+          mon, d, y = dt[0].split('/').map {|n| n.to_i}
+          h, min, s = dt[1].split(':').map {|n| n.to_i}
+          dt = DateTime.new(y, mon, d, h, min, s, -5)
+          post.date_posted = dt
           # TODO: see if the column heading hash keys can be trimmed
           post.title = row.fetch('Title of Multimedia Entry ').strip
-          post.date_posted = DateTime.parse row.fetch('Date Published ').strip
           post.url = row.fetch('Enter URL ').strip
           post.media_type = row.fetch('Type of Multimedia ').strip
 
