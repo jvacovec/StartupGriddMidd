@@ -4,64 +4,63 @@ FORMAT: 1A
 
 The StartupGrid API provides remote access to the StartupGrid DB of Posts, Authors, Users, Tags, Questions and Answers.
 
-# Group Posts
-
-A post is a web resource with some startup advice. There are three media types: blog posts, videos, and speaker decks.
-
 ## Posts Collection [/posts]
 ### List all Posts [GET]
 + Response 200 (application/json)
 
-<!--         [{
+        [{
           "id": 1, "title": "Jogging in park"
         }, {
           "id": 2, "title": "Pick-up posters from post-office"
         }] -->
 
-### Create a Post [POST]
-+ Request (application/json)
-
-        <!-- { "title": "Buy cheese and bread for breakfast." } -->
-
-+ Response 201 (application/json)
-
-        <!-- { "id": 3, "title": "Buy cheese and bread for breakfast." } -->
-
-## Post [/post/{id}]
+## Post [/posts/{id}]
 A single Post object with all its details
-
 + Parameters
     + id (required, number, `1`) ... Primary key of the post in question.
 
 ### Retrieve a Post [GET]
 + Response 200 (application/json)
     
-    { "id": 2, "title": "Pick-up posters from post-office" }
-
-### Remove a Post [DELETE]
-+ Response 204
-
-### List a Post's Tags [GET]
-
-### List a Post's Author [GET]
-
-# Group Authors
-
-An author is the source of startup information. The listing contains a bio and links to external webpages on the author.
+        { "id": 2, "title": "Pick-up posters from post-office" }
 
 ## Authors Collection [/authors]
-### List All Authors [GET]
+### List all Authors [GET]
++ Response 200 (application/json)
 
-## Author Posts [/authors/{id}/posts]
-### List Posts by Author [GET]
+        [{
+          "id": 1, "first": "Dave", "last": "Smith"
+        },  {
+          "id": 2, "first": "John", "last": "Deere"
+        }] -->
 
-# Group Tags
+## Author [/authors/{id}]
+A single Author object with Author's Posts
++ Parameters
+    + id (required, number, `1`) ... Primary key of the author in question.
 
-A tag indicates the type of information in a post, and is related to posts through the "Taggings" model.
+### Retrieve an Author [GET]
++ Response 200 (application/json)
+
+        { "id": 2, "first": "John", "last": "Deere" }
 
 ## Tags Collection [/tags]
 ### List All Tags [GET]
++ Response 200 (application/json)
 
-## Tag Posts [/tags/{id}/posts]
-### List Posts by Tag [GET]
+        [{
+          "id": 1, "name": "finance"
+        },  {
+          "id": 2, "name": "technology"
+        }] -->
+
+## Tag [/tags/{id}]
+A single Tag object with Posts associated with the Tag
++ Parameters
+    + id (required, number, `1`) ... Primary key of the tag in question.
+
+### Retrieve a Tag [GET]
++ Response 200 (application/json)
+
+        { "id": 2, "name": "technology" }
 
