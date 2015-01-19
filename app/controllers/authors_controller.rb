@@ -2,11 +2,7 @@ class AuthorsController < ApplicationController
   # GET /authors
   # GET /authors.json
   def index
-    if params[:post_id]
-      @authors = Post.find(params[:post_id]).authors
-    else
-      @authors = Author.all
-    end
+    @authors = Author.all
     paginate json: @authors, per_page: 30
   end
 
@@ -15,7 +11,7 @@ class AuthorsController < ApplicationController
   def show
     @author = Author.find(params[:id])
 
-    render json: @author, include: :posts
+    render json: @author
   end
 
   # POST /authors
