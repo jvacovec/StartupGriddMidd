@@ -14,10 +14,8 @@ class TagsController < ApplicationController
   # GET /tags/1.json
   def show
     @tag = Tag.find(params[:id])
-    @post = Tag.find(params[:id]).posts
-    show = @tag, @post
 
-    render json: show
+    render json: @tag, include: :posts
   end
 
   # POST /tags
