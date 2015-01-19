@@ -14,4 +14,3 @@ class Tag < ActiveRecord::Base
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
 end
-Tag.import
