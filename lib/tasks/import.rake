@@ -77,83 +77,108 @@ namespace :import do
       dl_url = result.data['export_links']['application/pdf'].sub!('=pdf', '=csv')
       result = client.execute(uri: dl_url)
       if result.status == 200
-        posts = Post.where("csv_row IS NOT NULL").order("csv_row ASC")
+        posts = Post.where.not(csv_row: nil).order(csv_row: :asc)
         table = CSV.parse(result.body, headers: true)
         table.each_with_index do |row, index|
           # If the corresponding row exists in the db
-          if index <= posts.length and posts[index].csv_row == index
+          if index < posts.length and posts[index].csv_row == index
             post = posts[index]
           else
             post = Post.new
           end
-          post.created_at = DateTime.strptime row['Timestamp'].strip, '%-m/%-d/%Y %H:%M:%S'
+          $stdout.puts row.fetch('Timestamp').strip
+          post.created_at = DateTime.parse row.fetch('Timestamp').strip
           # TODO: see if the column heading hash keys can be trimmed
-          post.title = row['Title of Multimedia Entry '].strip
-          post.date_posted = DateTime.strptime row['Date Published '].strip, '%-m/%-d/%Y'
-          post.url = row['Enter URL '].strip
-          post.media_type = row['Type of Multimedia '].strip
+          post.title = row.fetch('Title of Multimedia Entry ').strip
+          post.date_posted = DateTime.parse row.fetch('Date Published ').strip
+          post.url = row.fetch('Enter URL ').strip
+          post.media_type = row.fetch('Type of Multimedia ').strip
 
-          post.quote_1 = row['Money Quote 1'].strip
-          post.quote_2 = row['Money Quote 2'].strip
-          post.technicality = row['Technicality Rating '].to_i
-          post.difficulty = row['Difficulty Rating '].to_i
-          post.quality = row['Overall Rating'].to_i
-          post.summary = row['Give a quick summary of Insights gained'].strip
+          post.quote_1 = (row.fetch('Money Quote 1') || "").strip
+          post.quote_2 = (row.fetch('Money Quote 2') || "").strip
+          post.technicality = row.fetch('Technicality Rating ').to_i
+          post.difficulty = row.fetch('Difficulty Rating ').to_i
+          post.quality = row.fetch('Overall Rating').to_i
+          post.summary = row.fetch('Give a quick summary of Insights gained').strip
 
-          post.trackback_url_1 = row['Other Source 1'].strip
-          post.trackback_url_2 = row['Other Source 2'].strip
-          post.trackback_url_3 = row['Other Source 3'].strip
-          post.reference_url_1 = row['Source to alternative media sources in entry '].strip
-          post.reference_url_2 = row['Alternative Source 2'].strip
+          post.trackback_url_1 = (row.fetch('Other Source 1') || "").strip
+          post.trackback_url_2 = (row.fetch('Other Source 2') || "").strip
+          post.trackback_url_3 = (row.fetch('Other Source 3') || "").strip
+          post.reference_url_1 = (row.fetch('Source to alternative media sources in entry ') || "").strip
+          post.reference_url_2 = (row.fetch('Alternative Source 2') || "").strip
+          post.user = User.find_by(username: row.fetch('Reviewer ID').strip.downcase)
+          post.author = Author.find_or_create_by(name: row.fetch('Full Name of Multimedia Author  ').strip)
 
-          post.user = User.find_by(username: row['Reviewer ID'].strip).first!
-          post.author = Author.find_or_create_by(name: row['Full Name of Multimedia Author  '].strip)
-
-          subtopics = row['Enter Subtopics (Min 1, Max 4)'].split(',').map{|t| t.strip.downcase}.select {|t| t.length > 0}
-          tags = row['Enter Tags (Min 2, Max 6)'].split(',').map {|t| t.strip.downcase}.select {|t| t.length > 0}
-          
           post.save
-
-          question_1 = Question.find_or_create_by(question: row[10].strip)
-          answer_1 = Answer.find_or_initialize_by(question: question_1, post: post)
-          if post.media_type == 'Blog'
-            answer_1.start_excerpt = row[11].strip
-            answer_1.end_excerpt = row[12].strip
-            answer_1.confidence = row[13].to_i
-          elsif post.media_type == 'Video/Audio'
-            answer_1.video_seek_time = row[11].to_i
-          elsif post.media_type == 'Slideshare'
-            answer_1.deck_start_slide = row[11].to_i
+          
+          subtopics = row.fetch('Enter Subtopics (Min 1, Max 4)') || ""
+          subtopics = subtopics.split(',').map{|t| t.strip.downcase}.select {|t| t.length > 0}
+          subtopics.each do |tag_name|
+            tag = Tag.find_by(name: tag_name)
+            if not tag
+              tag = Tag.create(name: tag_name, custom: true)
+            end
+            post.taggings.create(tag: tag)
           end
-          answer_1.save
-
-          question_2 = Question.find_or_create_by(question: row[14].strip)
-          answer_2 = Answer.find_or_initialize_by(question: question_2, post: post)
-          if post.media_type == 'Blog'
-            answer_2.start_excerpt = row[19].strip 
-            # TODO: I'm guessing that columns 19 and 20 correspond to the start and end of question 2.
-            answer_2.end_excerpt = row[20].strip
-            answer_2.confidence = row[15].to_i
-          elsif post.media_type == 'Video/Audio'
-            answer_2.video_seek_time = row[19].to_i
-          elsif post.media_type == 'Slideshare'
-            answer_2.deck_start_slide = row[19].to_i
+          tags = row.fetch('Enter Tags (Min 2, Max 6)') || ""
+          tags = tags.split(',').map {|t| t.strip.downcase}.select {|t| t.length > 0}
+          tags.each do |tag_name|
+            tag = Tag.find_by(name: tag_name)
+            if not tag
+              tag = Tag.create(name: tag_name, custom: true)
+            end
+            post.taggings.create(tag: tag)
           end
-          answer_2.save
 
-          question_3 = Question.find_or_create_by(question: row[18].strip)
-          answer_3 = Answer.find_or_initialize_by(question: question_3, post: post)
-          if post.media_type == 'Blog'
-            answer_3.start_excerpt = row[21].strip 
-            # TODO: I'm guessing that columns 19 and 20 correspond to the start and end of question 2.
-            answer_3.end_excerpt = row[22].strip
-            answer_3.confidence = row[17].to_i
-          elsif post.media_type == 'Video/Audio'
-            answer_3.video_seek_time = row[21].to_i
-          elsif post.media_type == 'Slideshare'
-            answer_3.deck_start_slide = row[21].to_i
+          question_1 = row[10]
+          if question_1
+            question_1 = Question.find_or_create_by(question: question_1.strip)
+            answer_1 = Answer.find_or_initialize_by(question: question_1, post: post)
+            if post.media_type == 'Blog'
+              answer_1.start_excerpt = (row[11] || "").strip
+              answer_1.end_excerpt = (row[12] || "").strip
+              answer_1.confidence = (row[13] || "").to_i
+            elsif post.media_type == 'Video/Audio'
+              answer_1.video_seek_time = (row[11] || "").to_i
+            elsif post.media_type == 'Slideshare'
+              answer_1.deck_start_slide = (row[11] || "").to_i
+            end
+            answer_1.save
           end
-          answer_3.save 
+
+          question_2 = row[14]
+          if question_2
+            question_2 = Question.find_or_create_by(question: question_2.strip)
+            answer_2 = Answer.find_or_initialize_by(question: question_2, post: post)
+            if post.media_type == 'Blog'
+              answer_2.start_excerpt = (row[19] || "").strip 
+              # TODO: I'm guessing that columns 19 and 20 correspond to the start and end of question 2.
+              answer_2.end_excerpt = (row[20] || "").strip
+              answer_2.confidence = (row[15] || "").to_i
+            elsif post.media_type == 'Video/Audio'
+              answer_2.video_seek_time = (row[19] || "").to_i
+            elsif post.media_type == 'Slideshare'
+              answer_2.deck_start_slide = (row[19] || "").to_i
+            end
+            answer_2.save
+          end
+
+          question_3 = row[18]
+          if question_3
+            question_3 = Question.find_or_create_by(question: question_3.strip)
+            answer_3 = Answer.find_or_initialize_by(question: question_3, post: post)
+            if post.media_type == 'Blog'
+              answer_3.start_excerpt = (row[21] || "").strip 
+              # TODO: I'm guessing that columns 19 and 20 correspond to the start and end of question 2.
+              answer_3.end_excerpt = (row[22] || "").strip
+              answer_3.confidence = (row[17] || "").to_i
+            elsif post.media_type == 'Video/Audio'
+              answer_3.video_seek_time = (row[21] || "").to_i
+            elsif post.media_type == 'Slideshare'
+              answer_3.deck_start_slide = (row[21] || "").to_i
+            end
+            answer_3.save
+          end
         end
       else
         raise "Could not download Google Spreadsheet CSV."
