@@ -9,7 +9,7 @@ class PostsController < ApplicationController
     else
       @posts = Post.all
     end
-    paginate json: @posts, per_page: 1
+    paginate json: @posts, per_page: 30
   end
 
   # GET /posts/1

@@ -7,7 +7,7 @@ class AuthorsController < ApplicationController
     else
       @authors = Author.all
     end
-    render json: @authors
+    paginte json: @authors, per_page: 30
   end
 
   # GET /authors/1
