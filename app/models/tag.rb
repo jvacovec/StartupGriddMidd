@@ -6,7 +6,7 @@ class Tag < ActiveRecord::Base
   has_many :children, class_name: 'Tag', foreign_key: 'parent_id'
   has_many :taggings
   has_many :posts, through: :taggings
-
+  has_many :posts, through: :children, through: :taggings
   def to_s
     name
   end

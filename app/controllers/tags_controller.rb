@@ -2,11 +2,7 @@ class TagsController < ApplicationController
   # GET /tags
   # GET /tags.json
   def index
-    if params[:post_id]
-      @tags = Post.find(params[:post_id]).tags
-    else
-      @tags = Tag.all
-    end
+    @tags = Tag.all
     render json: @tags
   end
 
@@ -14,7 +10,6 @@ class TagsController < ApplicationController
   # GET /tags/1.json
   def show
     @tag = Tag.find(params[:id])
-
     render json: @tag, include: :posts
   end
 
