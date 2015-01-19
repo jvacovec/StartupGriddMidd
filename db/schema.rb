@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150115160155) do
+ActiveRecord::Schema.define(version: 20150118232505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,14 +25,14 @@ ActiveRecord::Schema.define(version: 20150115160155) do
     t.integer  "post_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.string   "start_excerpt"
+    t.string   "end_excerpt"
   end
 
   add_index "answers", ["post_id"], name: "index_answers_on_post_id", using: :btree
   add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
 
   create_table "authors", force: :cascade do |t|
-    t.string   "first"
-    t.string   "last"
     t.text     "bio"
     t.string   "linkedin_url"
     t.string   "angellist_url"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20150115160155) do
     t.string   "location"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "name"
   end
 
   create_table "authors_posts", id: false, force: :cascade do |t|
@@ -50,6 +51,12 @@ ActiveRecord::Schema.define(version: 20150115160155) do
 
   add_index "authors_posts", ["author_id"], name: "index_authors_posts_on_author_id", using: :btree
   add_index "authors_posts", ["post_id"], name: "index_authors_posts_on_post_id", using: :btree
+
+  create_table "google_credentials", force: :cascade do |t|
+    t.string   "credentials"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -73,6 +80,7 @@ ActiveRecord::Schema.define(version: 20150115160155) do
     t.string   "reference_url_1"
     t.string   "reference_url_2"
     t.string   "reference_url_3"
+    t.integer  "csv_row"
   end
 
   add_index "posts", ["author_id"], name: "index_posts_on_author_id", using: :btree
@@ -123,12 +131,13 @@ ActiveRecord::Schema.define(version: 20150115160155) do
   create_table "tags", force: :cascade do |t|
     t.string   "name"
     t.string   "icon_url"
-    t.integer  "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "custom"
+    t.integer  "parent_id"
   end
 
-  add_index "tags", ["tag_id"], name: "index_tags_on_tag_id", using: :btree
+  add_index "tags", ["parent_id"], name: "index_tags_on_parent_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
@@ -141,6 +150,5 @@ ActiveRecord::Schema.define(version: 20150115160155) do
   end
 
   add_foreign_key "taggings", "posts"
-  add_foreign_key "taggings", "questions"
   add_foreign_key "taggings", "tags"
 end

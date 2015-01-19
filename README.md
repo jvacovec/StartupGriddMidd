@@ -1,3 +1,6 @@
 # [StartupGrid API](http://docs.sug.apiary.io)
 
 Written with Rails-API. Search query support will come later.
+
+## TODO
+- add .rbenvrc, .rbenv files
