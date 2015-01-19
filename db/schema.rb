@@ -150,5 +150,7 @@ ActiveRecord::Schema.define(version: 20150118232505) do
   end
 
   add_foreign_key "taggings", "posts"
+  add_foreign_key "taggings", "questions"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "tags", "tags", column: "parent_id"
 end
