@@ -4,9 +4,6 @@ FORMAT: 1A
 
 The StartupGrid API provides remote access to the StartupGrid DB of Posts, Authors, Users, Tags, Questions and Answers.
 
-# Group Posts
-A post is a web resource with some startup advice. There are three media types: blog posts, videos, and speaker decks.
-
 ## Posts Collection [/posts]
 ### List all Posts [GET]
 + Response 200 (application/json)
@@ -27,11 +24,6 @@ A single Post object with all its details
     
         { "id": 2, "title": "Pick-up posters from post-office" }
 
-# Group Authors
-
-An author is the source of startup information. The listing contains a bio and links to external webpages on the author.
-
-
 ## Authors Collection [/authors]
 ### List all Authors [GET]
 + Response 200 (application/json)
@@ -50,14 +42,25 @@ A single Author object with Author's Posts
 ### Retrieve an Author [GET]
 + Response 200 (application/json)
 
-        { "id": 2, "first": "Dave", "last": "Smith" }
-
-# Group Tags
-
-A tag indicates the type of information in a post, and is related to posts through the "Taggings" model.
+        { "id": 2, "first": "John", "last": "Deere" }
 
 ## Tags Collection [/tags]
 ### List All Tags [GET]
++ Response 200 (application/json)
 
-## Tag Posts [/tags/{id}/posts]
-### List Posts by Tag [GET]
+<!--        [{
+          "id": 1, "name": "finance"
+        },  {
+          "id": 2, "name": "technology"
+        }] -->
+
+## Tag [/tags/{id}]
+A single Tag object with Posts associated with the Tag
++ Parameters
+    + id (required, number, `1`) ... Primary key of the tag in question.
+
+### Retrieve a Tag [GET]
++ Response 200 (application/json)
+
+        { "id": 2, "name": "technology" }
+
