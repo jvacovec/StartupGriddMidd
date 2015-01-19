@@ -8,11 +8,8 @@ The StartupGrid API provides remote access to the StartupGrid DB of Posts, Autho
 ### List all Posts [GET]
 + Response 200 (application/json)
 
-        [{
-          "id": 1, "title": "Jogging in park"
-        }, {
-          "id": 2, "title": "Pick-up posters from post-office"
-        }] -->
+        [{"id":1,"title":"Mean People Fail","url":"http://paulgraham.com/mean.html","date_posted":"2015-01-09T14:00:35.000Z","media_type":"Blog","quote_1":"\"And in most of them meanness was not a handicap but probably an advantage. That is changing. Increasingly the games that matter are not zero-sum. Increasingly you win not by fighting to get control of a scarce resource, but by having new ideas and building new things.\"","quote_2":"","quote_3":null,"difficulty":1,"technicality":1,"quality":5,"summary":"This article gives very sound advice to avoid hiring mean people to a startup. It sets up the correlation between meanness and failure nicely.","trackback_url_1":"","trackback_url_2":"","trackback_url_3":"","user_id":1,"author_id":1,"created_at":"2015-01-19T15:58:05.720Z","updated_at":"2015-01-19T15:58:05.720Z","reference_url_1":"","reference_url_2":"","reference_url_3":null,"csv_row":null},
+        {"id":2,"title":"The Fatal Pinch","url":"http://paulgraham.com/pinch.html","date_posted":"2015-01-09T14:17:33.000Z","media_type":"Blog","quote_1":"\"The company has, say, 6 months of runway. Or to put it more brutally, 6 months before they're out of business. They expect to avoid that by raising more from investors. [1] That last sentence is the fatal one.\"","quote_2":"","quote_3":null,"difficulty":2,"technicality":2,"quality":7,"summary":"This article coins the term the \"fatal pinch\". It also explains what a company should do when they see the end to their funding in the future.","trackback_url_1":"","trackback_url_2":"","trackback_url_3":"","user_id":1,"author_id":1,"created_at":"2015-01-19T15:58:05.963Z","updated_at":"2015-01-19T15:58:05.963Z","reference_url_1":"","reference_url_2":"","reference_url_3":null,"csv_row":null}]
 
 ## Post [/posts/{id}]
 A single Post object with all its details
