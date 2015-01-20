@@ -12,16 +12,13 @@ class TagsController < ApplicationController
     logger.info params[:id]
     @topics = Tag.where(:id => params[:id])
  
-    render json: @topics, include: { children: {
-    include: :children
-      }
-    }
+    render json: @topics, include: { children: { include: :children } }
   end
 
   def topics
     @topics=Tag.where(parent_id: nil, custom: false)
 
-    render json: @topics
+    render json: @topics, include: { children: { include: :children } }
   end
 
   # POST /tags
