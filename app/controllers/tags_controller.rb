@@ -16,7 +16,7 @@ class TagsController < ApplicationController
   end
 
   def topics
-    @topics=Tag.where(:parent_id => nil)
+    @topics=Tag.where(:parent_id => nil, :custom => false)
 
     render json: @topics, include: { children: {
     include: :children
