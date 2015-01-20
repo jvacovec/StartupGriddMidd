@@ -12,8 +12,8 @@ gem 'rack-timeout'
 # gem 'sqlite3'
 
 #elasticsearch gems
-#gem 'elasticsearch-model'
-#gem 'elasticsearch-rails'
+gem 'elasticsearch-rails'
+gem 'elasticsearch-model'
 
 #pagination
 gem 'will_paginate', '~> 3.0.5'

@@ -1,5 +1,5 @@
-#require 'elasticsearch/model'
-#require 'elasticsearch/rails'
+require 'elasticsearch/model'
+require 'elasticsearch/rails'
 
 class Post < ActiveRecord::Base
   belongs_to :user, inverse_of: :posts
@@ -11,8 +11,8 @@ class Post < ActiveRecord::Base
   def to_s
     title
   end
-
-  #include Elasticsearch::Model
-  #include Elasticsearch::Model::Callbacks
+  
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
 end
-#Post.import
+Post.import
