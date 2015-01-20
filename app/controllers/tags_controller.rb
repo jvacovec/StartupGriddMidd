@@ -24,6 +24,12 @@ class TagsController < ApplicationController
     }
   end
 
+  def posts
+    @posts = Tag.find(params[:id]).posts
+
+    render json: @posts
+  end
+
   # POST /tags
   # POST /tags.json
   def create
