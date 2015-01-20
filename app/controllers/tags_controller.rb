@@ -3,25 +3,25 @@ class TagsController < ApplicationController
   # GET /tags.json
   def index
     @tags = Tag.all
-    render json: @tags
+    render json: @tags.map { |t| t.to_tree }
   end
 
   # GET /tags/1
   # GET /tags/1.json
   def show
     logger.info params[:id]
-    @topics = Tag.where(:id => params[:id])
+    @tags = Tag.where(:id => params[:id])
  
-    render json: @topics, include: { children: {
-    include: :children
-      }
-    }
+    render json: @tags.map { |t| t.to_tree }
   end
 
   def topics
     @topics=Tag.where(:parent_id => nil)
 
-    render json: @topics
+    render json: @topics, include: { children: {
+    include: :children
+      }
+    }
   end
 
   # POST /tags
