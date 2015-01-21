@@ -85,6 +85,7 @@ namespace :import do
             post = posts[index]
           else
             post = Post.new
+            post.csv_row = index
           end
           dt = row.fetch('Timestamp').strip.split(' ')
           mon, d, y = dt[0].split('/').map {|n| n.to_i}
