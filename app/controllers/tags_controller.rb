@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+
   # GET /tags
   # GET /tags.json
   def index
@@ -19,6 +20,12 @@ class TagsController < ApplicationController
     @topics=Tag.where(:parent_id => nil, :custom => false).sort_by { |x| x.name }
 
     render json: @topics.map { |t| t.to_tree }
+  end
+
+  def posts
+    @posts = Tag.find(params[:id]).posts
+
+    render json: @posts
   end
 
   # POST /tags
