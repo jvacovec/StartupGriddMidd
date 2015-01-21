@@ -1,4 +1,4 @@
-if ENV['BONSAI_URL']
+if Ruby.env.production?
   Elasticsearch::Model.client = Elasticsearch::Client.new({url: ENV['BONSAI_URL'], logs: true})
   BONSAI_INDEX_NAME = ENV['BONSAI_URL'][/[^\/]+$/]
 else
