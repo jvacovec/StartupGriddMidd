@@ -11,7 +11,7 @@ class Post < ActiveRecord::Base
   def to_s
     title
   end
-
+  
   #include Elasticsearch::Model
   #include Elasticsearch::Model::Callbacks
 end

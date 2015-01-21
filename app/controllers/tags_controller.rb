@@ -1,22 +1,33 @@
 class TagsController < ApplicationController
+
   # GET /tags
   # GET /tags.json
   def index
-    if params[:post_id]
-      @tags = Post.find(params[:post_id]).tags
-    else
-      @tags = Tag.all
-    end
-    render json: @tags
+    @tags = Tag.all
+    render json: @tags.map { |t| t.to_tree }
   end
 
   # GET /tags/1
   # GET /tags/1.json
   def show
-    @tag = Tag.find(params[:id])
-
-    render json: @tag, include: :posts
+    logger.info params[:id]
+    @tags = Tag.where(:id => params[:id])
+ 
+    render json: @tags.map { |t| t.to_tree }
   end
+
+  def topics
+    @topics=Tag.where(:parent_id => nil, :custom => false).sort_by { |x| x.name }
+
+    render json: @topics.map { |t| t.to_tree }
+  end
+
+  def posts
+    @posts = Tag.find(params[:id]).posts
+
+    render json: @posts, :include => [:author, :user]
+  end
+
 
   # POST /tags
   # POST /tags.json

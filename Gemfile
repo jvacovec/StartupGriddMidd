@@ -12,11 +12,18 @@ gem 'rack-timeout'
 # gem 'sqlite3'
 
 #elasticsearch gems
-#gem 'elasticsearch-model'
-#gem 'elasticsearch-rails'
+gem 'elasticsearch-rails'
+gem 'elasticsearch-model'
+
+#pagination
+gem 'will_paginate', '~> 3.0.5'
+#with headers...
+gem 'api-pagination'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
+
+gem 'rack-cors', :require => 'rack/cors'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'

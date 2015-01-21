@@ -114,7 +114,7 @@ namespace :import do
           post.save
           
           subtopics = row.fetch('Enter Subtopics (Min 1, Max 4)') || ""
-          subtopics = subtopics.split(',').map{|t| t.strip.downcase}.select {|t| t.length > 0}
+          subtopics = subtopics.downcase.split(',').map {|t| t.strip.split.map {|w| w.capitalize}.join(' ')}.select {|t| t.length > 0}
           subtopics.each do |tag_name|
             tag = Tag.find_by(name: tag_name)
             if not tag
@@ -123,7 +123,7 @@ namespace :import do
             post.taggings.create(tag: tag)
           end
           tags = row.fetch('Enter Tags (Min 2, Max 6)') || ""
-          tags = tags.split(',').map {|t| t.strip.downcase}.select {|t| t.length > 0}
+          tags = tags.downcase.split(',').map {|t| t.strip.split.map {|w| w.capitalize}.join(' ')}.select {|t| t.length > 0}
           tags.each do |tag_name|
             tag = Tag.find_by(name: tag_name)
             if not tag
