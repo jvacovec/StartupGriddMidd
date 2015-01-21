@@ -13,8 +13,25 @@ class Tag < ActiveRecord::Base
     name
   end
 
+  def as_json(options={})
+    super(options)
+  end
+
   def to_tree
-    as_json include: :children
+    json_rep = as_json :include => { 
+      :children => {
+        :methods => [:post_count],
+        :include => { 
+          :children => {
+            :methods => [:post_count]
+          } 
+        }
+      }
+    }, :methods => [:post_count]
+  end
+
+  def post_count
+    posts.count
   end
   
   #include Elasticsearch::Model
