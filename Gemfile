@@ -44,3 +44,5 @@ gem 'pg'
 gem 'google-api-client'
 gem 'launchy'
 gem 'colorize'
+
+gem 'rails_stdout_logging'
