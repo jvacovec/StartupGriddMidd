@@ -25,7 +25,7 @@ class TagsController < ApplicationController
   def posts
     @posts = Tag.find(params[:id]).posts
 
-    render json: @posts, :include => [:author, :user]
+    render json: @posts, :include => [:author, :user, :tags]
   end
 
 
