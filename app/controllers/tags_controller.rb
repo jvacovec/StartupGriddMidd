@@ -16,12 +16,9 @@ class TagsController < ApplicationController
   end
 
   def topics
-    @topics=Tag.where(:parent_id => nil)
+    @topics=Tag.where(:parent_id => nil, :custom => false).sort_by { |x| x.name }
 
-    render json: @topics, include: { children: {
-    include: :children
-      }
-    }
+    render json: @topics.map { |t| t.to_tree }
   end
 
   # POST /tags
