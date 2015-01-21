@@ -25,8 +25,9 @@ class TagsController < ApplicationController
   def posts
     @posts = Tag.find(params[:id]).posts
 
-    render json: @posts
+    render json: @posts.map { |p| {p.author.name => p} }
   end
+
 
   # POST /tags
   # POST /tags.json
