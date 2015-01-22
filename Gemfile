@@ -14,7 +14,6 @@ gem 'rack-timeout'
 #elasticsearch gems
 gem 'elasticsearch-rails'
 gem 'elasticsearch-model'
-gem 'bonsai-elasticsearch-rails'
 
 #pagination
 gem 'will_paginate', '~> 3.0.5'
