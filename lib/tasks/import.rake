@@ -121,7 +121,9 @@ namespace :import do
             if not tag
               tag = Tag.create(name: tag_name, custom: true)
             end
-            post.taggings.create(tag: tag)
+            if not post.taggings.find_by_tag_id(tag.id)
+              post.taggings.create(tag: tag)              
+            end
           end
           tags = row.fetch('Enter Tags (Min 2, Max 6)') || ""
           tags = tags.downcase.split(',').map {|t| t.strip.split.map {|w| w.capitalize}.join(' ')}.select {|t| t.length > 0}
@@ -130,55 +132,55 @@ namespace :import do
             if not tag
               tag = Tag.create(name: tag_name, custom: true)
             end
-            post.taggings.create(tag: tag)
+            post.taggings.find_or_create_by(tag: tag)
           end
 
-          question_1 = row[10]
+          question_1 = row[9]
           if question_1
             question_1 = Question.find_or_create_by(question: question_1.strip)
             answer_1 = Answer.find_or_initialize_by(question: question_1, post: post)
             if post.media_type == 'Blog'
-              answer_1.start_excerpt = (row[11] || "").strip
-              answer_1.end_excerpt = (row[12] || "").strip
-              answer_1.confidence = (row[13] || "").to_i
+              answer_1.start_excerpt = (row[10] || "").strip
+              answer_1.end_excerpt = (row[11] || "").strip
+              answer_1.confidence = (row[12] || "").to_i
             elsif post.media_type == 'Video/Audio'
-              answer_1.video_seek_time = (row[11] || "").to_i
+              answer_1.video_seek_time = (row[10] || "").to_i
             elsif post.media_type == 'Slideshare'
-              answer_1.deck_start_slide = (row[11] || "").to_i
+              answer_1.deck_start_slide = (row[10] || "").to_i
             end
             answer_1.save
           end
 
-          question_2 = row[14]
+          question_2 = row[13]
           if question_2
             question_2 = Question.find_or_create_by(question: question_2.strip)
             answer_2 = Answer.find_or_initialize_by(question: question_2, post: post)
             if post.media_type == 'Blog'
-              answer_2.start_excerpt = (row[19] || "").strip 
-              # TODO: I'm guessing that columns 19 and 20 correspond to the start and end of question 2.
-              answer_2.end_excerpt = (row[20] || "").strip
-              answer_2.confidence = (row[15] || "").to_i
+              answer_2.start_excerpt = (row[18] || "").strip 
+              # TODO: I'm guessing that columns 18 and 19 correspond to the start and end of question 2.
+              answer_2.end_excerpt = (row[19] || "").strip
+              answer_2.confidence = (row[14] || "").to_i
             elsif post.media_type == 'Video/Audio'
-              answer_2.video_seek_time = (row[19] || "").to_i
+              answer_2.video_seek_time = (row[18] || "").to_i
             elsif post.media_type == 'Slideshare'
-              answer_2.deck_start_slide = (row[19] || "").to_i
+              answer_2.deck_start_slide = (row[18] || "").to_i
             end
             answer_2.save
           end
 
-          question_3 = row[18]
+          question_3 = row[17]
           if question_3
             question_3 = Question.find_or_create_by(question: question_3.strip)
             answer_3 = Answer.find_or_initialize_by(question: question_3, post: post)
             if post.media_type == 'Blog'
-              answer_3.start_excerpt = (row[21] || "").strip 
+              answer_3.start_excerpt = (row[20] || "").strip 
               # TODO: I'm guessing that columns 19 and 20 correspond to the start and end of question 2.
-              answer_3.end_excerpt = (row[22] || "").strip
-              answer_3.confidence = (row[17] || "").to_i
+              answer_3.end_excerpt = (row[21] || "").strip
+              answer_3.confidence = (row[16] || "").to_i
             elsif post.media_type == 'Video/Audio'
-              answer_3.video_seek_time = (row[21] || "").to_i
+              answer_3.video_seek_time = (row[20] || "").to_i
             elsif post.media_type == 'Slideshare'
-              answer_3.deck_start_slide = (row[21] || "").to_i
+              answer_3.deck_start_slide = (row[20] || "").to_i
             end
             answer_3.save
           end
