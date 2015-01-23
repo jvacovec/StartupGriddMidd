@@ -9,7 +9,7 @@ class PostsController < ApplicationController
     else
       @posts = Post.all
     end
-    paginate json: @posts, per_page: 30, include: [:author, :user, :tags, {:answers => {:include => :question}}]
+    paginate json: @posts, per_page: 30, include: [:author, :user, :tags, {:questions => {:include => :answers}}]
   end
 
   # GET /posts/1
