@@ -3,7 +3,7 @@ class AuthorsController < ApplicationController
   # GET /authors.json
   def index
     @authors = Author.all
-    paginate json: @authors, per_page: 30
+    paginate json: @authors, per_page: 20
   end
 
   # GET /authors/1
