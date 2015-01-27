@@ -17,8 +17,8 @@ class TagsController < ApplicationController
 
   def topics
     render_tree = params[:tree] == "false" ? false : true
-    @topics=Tag.includes(children: [:children]).where(:parent_id => nil, :custom => false).order(:name)
-    if render_tree == true
+    @topics = Tag.where(:parent_id => nil, :custom => false).order(:name)
+    if render_tree
       render json: @topics.map { |t| t.to_tree }
     else
       render json: @topics
@@ -26,8 +26,8 @@ class TagsController < ApplicationController
   end
 
   def posts
-    @posts = Tag.find(params[:id]).posts.includes([:author, :user, :tags, {:questions => {:include => :answers}}])
-    render json: @posts, :include => [:author, :user, :tags, {:questions => {:include => :answers}}]
+    @posts = Tag.find(params[:id]).posts
+    render json: @posts, :joins => [:author, :user, :tags, {:questions => {:include => :answers}}]
   end
 
 
