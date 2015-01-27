@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/', to: 'application#ping'
   get '/oauth2callback', to: 'application#oauth2callback'
   get '/search' => "search#search"
   resources :tags, only: [:show, :index]
