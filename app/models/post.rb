@@ -15,4 +15,24 @@ class Post < ActiveRecord::Base
   
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
+
+  def as_indexed_json(options={})
+    as_json(
+      include: [:author, :tags]
+    )
+  end
+
+  def self.search(query)
+    __elasticsearch__.search(
+      {
+        query: {
+          multi_match: {
+            query: query,
+            fields: ["title"],
+            fuzziness: ["auto"]
+          }
+        }
+      }
+    )
+  end
 end
