@@ -4,6 +4,6 @@ class ApplicationController < ActionController::API
   end
 
   def ping
-    render plain: "StartupGrid API is up! Try these endpoints:\n\n/posts\n/posts/:id\n/authors\n/authors/:id\n/tags\n/tags/:id\n/topics"
+    render plain: "StartupGrid API is up! Try these endpoints:\n/posts\n/tags/:id/posts\n/topics"
   end
 end
