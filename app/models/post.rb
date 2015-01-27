@@ -24,15 +24,15 @@ class Post < ActiveRecord::Base
 
   def self.search(query)
     __elasticsearch__.search(
-      {
-        query: {
-          multi_match: {
-            query: query,
-            fields: ["title"],
-            fuzziness: ["auto"]
-          }
+    {
+      query: {
+        multi_match: {
+          query: query,
+          fields: ["title", "post.author.name", "post.tag.name^10"],
+          fuzziness: "auto"
         }
       }
+    }
     )
   end
 end
