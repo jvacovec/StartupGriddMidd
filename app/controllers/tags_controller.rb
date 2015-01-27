@@ -3,7 +3,7 @@ class TagsController < ApplicationController
   # GET /tags
   # GET /tags.json
   def index
-    @tags = Tag.all
+    @tags = Tag.includes(children: [:children]).all
     render json: @tags.map { |t| t.to_tree }
   end
 
@@ -11,14 +11,13 @@ class TagsController < ApplicationController
   # GET /tags/1.json
   def show
     logger.info params[:id]
-    @tags = Tag.where(:id => params[:id])
- 
+    @tags = Tag.includes(children: [:children]).find(params[:id])
     render json: @tags.map { |t| t.to_tree }
   end
 
   def topics
     render_tree = params[:tree] == "false" ? false : true
-    @topics=Tag.where(:parent_id => nil, :custom => false).sort_by { |x| x.name }
+    @topics=Tag.includes(children: [:children]).where(:parent_id => nil, :custom => false).order(:name)
     if render_tree == true
       render json: @topics.map { |t| t.to_tree }
     else
@@ -27,8 +26,7 @@ class TagsController < ApplicationController
   end
 
   def posts
-    @posts = Tag.find(params[:id]).posts
-
+    @posts = Tag.find(params[:id]).posts.includes([:author, :user, :tags, {:questions => {:include => :answers}}])
     render json: @posts, :include => [:author, :user, :tags, {:questions => {:include => :answers}}]
   end
 
