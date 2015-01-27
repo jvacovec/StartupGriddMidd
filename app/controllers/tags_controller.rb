@@ -8,11 +8,11 @@ class TagsController < ApplicationController
       tags.each { |t| tags_hash[t.parent_id] << t }
       topics = tags.select { |m| m.parent_id.nil? }
       @tree = topics.map do |t|
-        t_json = t.to_json
+        t_json = t.as_json
         t_json["children"] = tags_hash[t.id].map do |st|
-          st_json = st.to_json
+          st_json = st.as_json
           st_json["children"] = tags_hash[st.id].map do |tg|
-            tg.to_json
+            tg.as_json
           end
           st_json
         end
