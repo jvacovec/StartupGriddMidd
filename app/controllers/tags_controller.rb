@@ -20,7 +20,7 @@ class TagsController < ApplicationController
       end
       render json: @tree
     else
-      @topics = Tag.where(:custom => false, parent_id => nil).order(:name)
+      @topics = Tag.where(custom: false, parent: nil).order(:name)
       render json: @topics
     end
   end
