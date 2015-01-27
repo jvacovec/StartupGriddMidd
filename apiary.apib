@@ -21,36 +21,12 @@ A single Post object with all its details
     
         {"id":1,"title":"Mean People Fail","url":"http://paulgraham.com/mean.html","date_posted":"2015-01-09T14:00:35.000Z","media_type":"Blog","quote_1":"\"And in most of them meanness was not a handicap but probably an advantage. That is changing. Increasingly the games that matter are not zero-sum. Increasingly you win not by fighting to get control of a scarce resource, but by having new ideas and building new things.\"","quote_2":"","quote_3":null,"difficulty":1,"technicality":1,"quality":5,"summary":"This article gives very sound advice to avoid hiring mean people to a startup. It sets up the correlation between meanness and failure nicely.","trackback_url_1":"","trackback_url_2":"","trackback_url_3":"","user_id":1,"author_id":1,"created_at":"2015-01-19T15:58:05.720Z","updated_at":"2015-01-19T15:58:05.720Z","reference_url_1":"","reference_url_2":"","reference_url_3":null,"csv_row":null,"tags":[{"id":362,"name":"administrative","icon_url":null,"created_at":"2015-01-19T15:58:05.754Z","updated_at":"2015-01-19T15:58:05.754Z","custom":true,"parent_id":null},{"id":363,"name":"management","icon_url":null,"created_at":"2015-01-19T15:58:05.808Z","updated_at":"2015-01-19T15:58:05.808Z","custom":true,"parent_id":null},{"id":364,"name":"team quality","icon_url":null,"created_at":"2015-01-19T15:58:05.831Z","updated_at":"2015-01-19T15:58:05.831Z","custom":true,"parent_id":null},{"id":365,"name":"employee organization","icon_url":null,"created_at":"2015-01-19T15:58:05.852Z","updated_at":"2015-01-19T15:58:05.852Z","custom":true,"parent_id":null}]}
 
-## Authors Collection [/authors]
-### List all Authors [GET]
-+ Response 200 (application/json)
-
-        [{"id":1,"bio":null,"linkedin_url":null,"angellist_url":null,"wikipedia_url":null,"title":null,"location":null,"created_at":"2015-01-19T15:58:05.706Z","updated_at":"2015-01-19T15:58:05.706Z","name":"Paul Graham"},
-        {"id":2,"bio":null,"linkedin_url":null,"angellist_url":null,"wikipedia_url":null,"title":null,"location":null,"created_at":"2015-01-19T15:58:08.074Z","updated_at":"2015-01-19T15:58:08.074Z","name":"Venture Hacks"}]
-
-## Author [/authors/{id}]
-A single Author object with Author's Posts
-+ Parameters
-    + id (required, number, `1`) ... Primary key of the author in question.
-
-### Retrieve an Author [GET]
-+ Response 200 (application/json)
-
-        {"id":1,"bio":null,"linkedin_url":null,"angellist_url":null,"wikipedia_url":null,"title":null,"location":null,"created_at":"2015-01-19T18:43:06.277Z","updated_at":"2015-01-19T18:43:06.277Z","name":"Paul Graham"}
-
-## Tags Collection [/tags]
-### List All Tags [GET]
-+ Response 200 (application/json)
-
-        [{"id":1,"name":"Operations","icon_url":null,"created_at":"2015-01-19T18:41:40.832Z","updated_at":"2015-01-19T18:41:40.832Z","custom":false,"parent_id":null},
-        {"id":2,"name":"Administrative","icon_url":null,"created_at":"2015-01-19T18:41:40.838Z","updated_at":"2015-01-19T18:41:40.838Z","custom":false,"parent_id":1}]
-
-## Tag [/tags/{id}]
+## Posts for Tag [/tags/{id}/posts]
 A single Tag object with Posts associated with the Tag
 + Parameters
     + id (required, number, `1`) ... Primary key of the tag in question.
 
-### Retrieve a Tag [GET]
+### List posts for a Tag [GET]
 + Response 200 (application/json)
 
         {"id":1,"name":"Operations","icon_url":null,"created_at":"2015-01-19T18:41:40.832Z","updated_at":"2015-01-19T18:41:40.832Z","custom":false,"parent_id":null,"posts":[]}
@@ -65,4 +41,14 @@ Fetch all top level topics
 
         [{"id":1,"name":"Operations","icon_url":null,"created_at":"2015-01-19T18:41:40.832Z","updated_at":"2015-01-19T18:41:40.832Z","custom":false,"parent_id":null},
         {"id":2,"name":"Administrative","icon_url":null,"created_at":"2015-01-19T18:41:40.838Z","updated_at":"2015-01-19T18:41:40.838Z","custom":false,"parent_id":1}]
+
+## Search [/search]
+Query posts
++ Parameters
+    + q (required, string) ... Query to match posts against
+
+### List posts matching query [GET]
++ Response 200 (application/json)
+
+        [{"id":67,"title":"Everything you ever wanted to know about advisors, part 2","url":"http://venturehacks.com/articles/advisors-part-2","date_posted":"2015-01-09T13:31:29.000Z","media_type":"Blog","quote_1":"Equity also keeps advisors on the hook: you can go back to them again and again for help. If they were helpful once, they can probably be helpful again. And people with a financial interest in your future tend to return your calls.","quote_2":"YC acts like a super advisor, not an investor—and YC makes their companies happen by helping develop the company’s product, introducing them to investors, and branding their companies.","quote_3":null,"difficulty":3,"technicality":4,"quality":9,"summary":"Second part of in-depth article about advisors regarding compensation of advisors, alignment of incentives, and the value of investors. Also touches on the role of incubators (specifically, YCombinator) as superadvisors, and goes into the technical breakdown of appropriate compensation. Last part tackles the issue of termination in detail.","trackback_url_1":"","trackback_url_2":"","trackback_url_3":"","user_id":8,"author_id":2,"created_at":"2015-01-26T16:26:39.417Z","updated_at":"2015-01-26T16:26:39.417Z","reference_url_1":"","reference_url_2":"","reference_url_3":null,"csv_row":66,"image_url":null},{"id":108,"title":"(Not so) Scary terms in offer letters","url":"http://venturehacks.com/articles/not-so-scary-terms-in-offer-letters","date_posted":"2015-01-19T14:27:27.000Z","media_type":"Blog","quote_1":"Offer letters are short and easy to read, as far as legal documents go. But they contain some seemingly scary terms that are (1) ubiquitous in Silicon Valley and (2) usually “no big deal”.","quote_2":"","quote_3":null,"difficulty":4,"technicality":4,"quality":8,"summary":"Article provides important insight into what kind of deals you can expect working in Silicon Valley and goes through explaining certain points that are likely to come up, and probably entrepreneurs should not consider as threatening. In other words, the article does a great job at conditioning potential employees as to the recruitment culture in the Valley.","trackback_url_1":"","trackback_url_2":"","trackback_url_3":"","user_id":8,"author_id":2,"created_at":"2015-01-26T16:26:42.082Z","updated_at":"2015-01-26T16:26:42.082Z","reference_url_1":"","reference_url_2":"","reference_url_3":null,"csv_row":107,"image_url":null}]
 
