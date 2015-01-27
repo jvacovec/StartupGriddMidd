@@ -19,7 +19,7 @@ class TagsController < ApplicationController
   def topics
     render_tree = params[:tree] == "false" ? false : true
     @topics=Tag.where(:parent_id => nil, :custom => false).sort_by { |x| x.name }
-    if(render_tree == true)
+    if render_tree == true
       render json: @topics.map { |t| t.to_tree }
     else
       render json: @topics
