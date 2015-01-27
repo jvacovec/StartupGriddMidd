@@ -2,12 +2,26 @@ class TagsController < ApplicationController
 
   def topics
     render_tree = params[:tree] == "false" ? false : true
-    @topics = Tag.where(:parent_id => nil, :custom => false).order(:name)
+    @tags = Tag.where(:custom => false).order(:name)
+    @topics = @tags.select { |m| m.parent_id.nil? }
     if render_tree
-      render json: @topics.map { |t| t.to_tree }
-    else
-      render json: @topics
+      @topics.map! { |topic|
+        json = topic.as_json
+        json["children"] = @tags.select { |st|
+          st.parent_id == topic.id
+        }.map { |st| 
+          tag_json = st.as_json
+          tag_json["children"] = @tags.select { |tag|
+            tag.parent_id == st.id
+          }.map { |tag|
+            tag.as_json
+          }
+          tag_json
+        }
+        json
+      }
     end
+    render json: @topics
   end
 
   def posts
