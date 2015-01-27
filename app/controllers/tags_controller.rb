@@ -1,72 +1,33 @@
 class TagsController < ApplicationController
 
-  # GET /tags
-  # GET /tags.json
-  def index
-    @tags = Tag.includes(children: [:children]).all
-    render json: @tags.map { |t| t.to_tree }
-  end
-
-  # GET /tags/1
-  # GET /tags/1.json
-  def show
-    logger.info params[:id]
-    @tags = Tag.includes(children: [:children]).find(params[:id])
-    render json: @tags.map { |t| t.to_tree }
-  end
-
   def topics
-    render_tree = params[:tree] == "false" ? false : true
-    @topics=Tag.includes(children: [:children]).where(:parent_id => nil, :custom => false).order(:name)
-    if render_tree == true
-      render json: @topics.map { |t| t.to_tree }
+    render_tree = params[:tree] == "false" ? false : true 
+    if render_tree
+      tags_hash = Hash.new {|h,k| h[k] = []}
+      tags = Tag.where(:custom => false).order(:name)
+      tags.each { |t| tags_hash[t.parent_id] << t }
+      topics = tags.select { |m| m.parent_id.nil? }
+      @tree = topics.map do |t|
+        t_json = t.as_json
+        t_json["children"] = tags_hash[t.id].map do |st|
+          st_json = st.as_json
+          st_json["children"] = tags_hash[st.id].map do |tg|
+            tg.as_json
+          end
+          st_json
+        end
+        t_json
+      end
+      render json: @tree
     else
+      @topics = Tag.where(custom: false, parent: nil).order(:name)
       render json: @topics
     end
   end
 
   def posts
-    @posts = Tag.find(params[:id]).posts.includes([:author, :user, :tags, {:questions => {:include => :answers}}])
+    post_ids = Tagging.where(:tag_id => params[:id]).where.not(:post_id => nil).map {|m| m.post_id }
+    @posts = Post.where(:id => post_ids)
     render json: @posts, :include => [:author, :user, :tags, {:questions => {:include => :answers}}]
   end
-
-
-  # POST /tags
-  # POST /tags.json
-  def create
-    @tag = Tag.new(tag_params)
-
-    if @tag.save
-      render json: @tag, status: :created, location: @tag
-    else
-      render json: @tag.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /tags/1
-  # PATCH/PUT /tags/1.json
-  def update
-    @tag = Tag.find(params[:id])
-
-    if @tag.update(tag_params)
-      head :no_content
-    else
-      render json: @tag.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /tags/1
-  # DELETE /tags/1.json
-  def destroy
-    @tag = Tag.find(params[:id])
-    @tag.destroy
-
-    head :no_content
-  end
-
-  private
-    
-    def tag_params
-      params[:tag]
-    end
 end
