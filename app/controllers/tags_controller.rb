@@ -1,12 +1,5 @@
 class TagsController < ApplicationController
 
-  # GET /tags
-  # GET /tags.json
-  def index
-    @tags = Tag.includes(children: [:children]).all
-    render json: @tags.map { |t| t.to_tree }
-  end
-
   # GET /tags/1
   # GET /tags/1.json
   def show
