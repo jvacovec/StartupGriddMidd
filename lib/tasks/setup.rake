@@ -1,7 +1,6 @@
 namespace :setup do
 
   task :run, [:environment] do
->>>>>>> master
     Rake::Task["db:migrate"].invoke
   end
   task :search, [:environment] do
@@ -22,9 +21,5 @@ namespace :setup do
   task :elastic_search, [:environment] do 
     Rake::Task["elastic_search:import"].invoke
   end
-<<<<<<< HEAD
 
 end
-=======
-end
->>>>>>> master
