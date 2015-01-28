@@ -1,6 +1,8 @@
 class TagsController < ApplicationController
 
   def topics
+    expires_in 10.minute, :public => true
+
     render_tree = params[:tree] == "false" ? false : true 
     if render_tree
       tags_hash = Hash.new {|h,k| h[k] = []}
@@ -18,14 +20,20 @@ class TagsController < ApplicationController
         end
         t_json
       end
-      render json: @tree
+      if stale?(@tree)
+        render json: @tree
+      end
     else
       @topics = Tag.where(custom: false, parent: nil).order(:name)
-      render json: @topics
+      if stale?(@topics)
+        render json: @topics
+      end
     end
   end
 
   def posts
+    expires_in 10.minute, :public => true
+
     @posts = Tag.find(params[:id]).posts
     paginate json: @posts, per_page: 20, include: [:author, :user, :tags, {:questions => {:include => :answers}}]
   end

@@ -2,13 +2,11 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    if params[:tag_id]
-      @posts = Tag.find(params[:tag_id]).posts
-    elsif params[:author_id]
-      @posts = Author.find(params[:author_id]).posts
-    else
-      @posts = Post.all
+    expires_in 10.minute, :public => true
+    
+    @posts = Post.all
+    if stale?(@posts)
+      paginate json: @posts, per_page: 20, include: [:author, :user, :tags, {:questions => {:include => :answers}}]
     end
-    paginate json: @posts, per_page: 20, include: [:author, :user, :tags, {:questions => {:include => :answers}}]
   end
 end
