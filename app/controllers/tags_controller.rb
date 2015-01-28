@@ -26,8 +26,7 @@ class TagsController < ApplicationController
   end
 
   def posts
-    post_ids = Tagging.where(:tag_id => params[:id]).where.not(:post_id => nil).map {|m| m.post_id }
-    @posts = Post.where(:id => post_ids)
-    render json: @posts, :include => [:author, :user, :tags, {:questions => {:include => :answers}}]
+    @posts = Tag.find(params[:id]).posts
+    paginate json: @posts, per_page: 20, include: [:author, :user, :tags, {:questions => {:include => :answers}}]
   end
 end
