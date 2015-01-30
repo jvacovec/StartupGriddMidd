@@ -42,7 +42,6 @@ gem 'pg'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 gem 'google-api-client'
-gem 'launchy'
 gem 'colorize'
 
 gem 'rails_stdout_logging'
