@@ -1,8 +1,6 @@
 class TagsController < ApplicationController
 
   def topics
-    expires_in 10.minute, :public => true
-
     render_tree = params[:tree] == "false" ? false : true 
     if render_tree
       tags_hash = Hash.new {|h,k| h[k] = []}
@@ -32,8 +30,6 @@ class TagsController < ApplicationController
   end
 
   def posts
-    expires_in 10.minute, :public => true
-
     @posts = Tag.find(params[:id]).posts
     paginate json: @posts, per_page: 20, include: [:author, :user, :tags, {:questions => {:include => :answers}}]
   end
