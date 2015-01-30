@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-  after_filter only: [:index] { set_pagination_header(:posts) }
 
   # GET /posts
   # GET /posts.json
