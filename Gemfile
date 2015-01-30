@@ -16,7 +16,7 @@ gem 'elasticsearch-rails'
 gem 'elasticsearch-model'
 
 #pagination
-gem 'will_paginate', '~> 3.0.5'
+gem 'kaminari'
 #with headers...
 gem 'api-pagination'
 

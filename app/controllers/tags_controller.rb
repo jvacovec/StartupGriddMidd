@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+  # after_filter only: [:posts] { set_pagination_header(:posts) }
 
   def topics
     render_tree = params[:tree] == "false" ? false : true 
@@ -30,7 +31,11 @@ class TagsController < ApplicationController
   end
 
   def posts
+    includes = [:author, :user, :tags, {:questions => {:include => :answers}}]
     @posts = Tag.find(params[:id]).posts
-    paginate json: @posts, per_page: 20, include: [:author, :user, :tags, {:questions => {:include => :answers}}]
+              .includes(*includes)
+              .order(:date_posted)
+              .page(params[:page])
+    render json: @posts, include: includes
   end
 end
