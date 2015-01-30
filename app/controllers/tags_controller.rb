@@ -35,6 +35,6 @@ class TagsController < ApplicationController
               .includes(*includes)
               .order(:date_posted)
               .page(params[:page])
-    render json: @posts, include: includes
+    paginate json: @posts, include: includes
   end
 end

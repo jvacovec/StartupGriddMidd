@@ -8,7 +8,7 @@ class PostsController < ApplicationController
                     .order(:date_posted)
                     .page(params[:page])
     if stale?(@posts)
-      render json: @posts, include: includes
+      paginate json: @posts, include: includes
     end
   end
 end
