@@ -23,7 +23,7 @@ module SUG
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
-config.middleware.insert_before 0, "Rack::Cors", :debug => true, :logger => (-> { Rails.logger }) do
+    config.middleware.insert_before 0, "Rack::Cors", :logger => (-> { Rails.logger }) do
       allow do
         origins '*'
         resource '*',
@@ -32,6 +32,5 @@ config.middleware.insert_before 0, "Rack::Cors", :debug => true, :logger => (-> 
           :expose  => ['Link']
       end
     end
-
   end
 end

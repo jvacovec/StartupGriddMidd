@@ -30,7 +30,6 @@ class TagsController < ApplicationController
   end
 
   def posts
-    headers['Access-Control-Allow-Headers'] = 'Link'
     includes = [:author, :user, :tags]
     @posts = Tag.find(params[:id]).posts
               .includes(*includes)
