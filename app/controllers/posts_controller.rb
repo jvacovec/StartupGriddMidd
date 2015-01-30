@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    includes = [:author, :user, :tags, {:questions => {:include => :answers}}]
+    includes = [:author, :user, :tags]
     @posts = Post.includes(*includes)
                     .order(:date_posted)
                     .page(params[:page])

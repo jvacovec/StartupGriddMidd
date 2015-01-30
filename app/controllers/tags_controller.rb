@@ -31,7 +31,7 @@ class TagsController < ApplicationController
   end
 
   def posts
-    includes = [:author, :user, :tags, {:questions => {:include => :answers}}]
+    includes = [:author, :user, :tags]
     @posts = Tag.find(params[:id]).posts
               .includes(*includes)
               .order(:date_posted)
