@@ -3,14 +3,14 @@
 require ::File.expand_path('../config/environment', __FILE__)
 run Rails.application
 
-require 'rack/cors'
+# require 'rack/cors'
 
-use Rack::Cors do
-  allow do
-    origins '*'
-    resource '*',
-      :headers => :any,
-      :methods => [:get, :post, :delete, :put, :options, :head],
-      :expose  => ['Link']    
-  end
-end
+# use Rack::Cors do
+#   allow do
+#     origins '*'
+#     resource '*',
+#       :headers => :any,
+#       :methods => [:get, :post, :delete, :put, :options, :head],
+#       :expose  => ['Link']    
+#   end
+# end
