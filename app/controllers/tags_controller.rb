@@ -1,5 +1,5 @@
 class TagsController < ApplicationController
-  # after_filter only: [:posts] { set_pagination_header(:posts) }
+  after_filter only: [:posts] { set_pagination_header(:posts) }
 
   def topics
     render_tree = params[:tree] == "false" ? false : true 
