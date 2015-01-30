@@ -169,7 +169,6 @@ DEPENDENCIES
   elasticsearch-rails
   google-api-client
   kaminari
-  launchy
   pg
   rack-cors
   rack-timeout
