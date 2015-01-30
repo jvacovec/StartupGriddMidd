@@ -45,3 +45,5 @@ gem 'google-api-client'
 gem 'colorize'
 
 gem 'rails_stdout_logging'
+
+gem 'foreman', :group => :development
