@@ -323,7 +323,7 @@ leadership_and_management = Tag.create(name: "Leadership & Management", parent: 
     Tag.create(parent: founders, custom: false, name: "Effectiveness")
     Tag.create(parent: founders, custom: false, name: "Exit")
     Tag.create(parent: founders, custom: false, name: "CoFounder")
-    Tag.create(parent: founders, custom: false, name: "Fouding Team")
+    Tag.create(parent: founders, custom: false, name: "Founding Team")
     Tag.create(parent: founders, custom: false, name: "Skills")
     Tag.create(parent: founders, custom: false, name: "Expertise")
     Tag.create(parent: founders, custom: false, name: "Transparency")

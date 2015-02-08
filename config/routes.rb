@@ -5,5 +5,6 @@ Rails.application.routes.draw do
   get '/topics' => "tags#topics"
   get '/tags/:id/posts' => "tags#posts"
   get '/posts' => "posts#index"
+  get '/authors' => "authors#index"
   # resources :posts, only: [:index]
 end
