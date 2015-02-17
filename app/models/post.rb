@@ -31,6 +31,9 @@ class Post < ActiveRecord::Base
           fields: ["title", "post.author.name", "post.tag.name^10"],
           fuzziness: "auto"
         }
+      },
+      filter: {
+        term: { tag: query }
       }
     }
     )
