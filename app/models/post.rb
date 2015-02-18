@@ -28,7 +28,7 @@ class Post < ActiveRecord::Base
       query: {
         multi_match: {
           query: query,
-          fields: ["title", "post.author.name", "post.tag.name^10"],
+          fields: ["title", "post.author.name", "post.tags.name^10"],
           fuzziness: "auto"
         }
       }
